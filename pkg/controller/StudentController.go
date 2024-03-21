@@ -75,3 +75,15 @@ func (c *StudentController) UpdateStudent(ctx echo.Context) error {
 
 	return ctx.JSON(http.StatusOK, existingStudent)
 }
+
+func (c *StudentController) GetStudentByEmail(ctx echo.Context) error {
+	email := ctx.Param("email")
+	student, err := c.StudentService.GetStudentByEmail(email)
+	if err != nil {
+		return err
+	} else if student == nil {
+		return ctx.NoContent(http.StatusNotFound)
+	}
+
+	return ctx.JSON(http.StatusOK, student)
+}

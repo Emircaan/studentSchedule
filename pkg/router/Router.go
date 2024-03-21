@@ -12,3 +12,7 @@ func SetupStudentRouters(e *echo.Echo, studentController controller.StudentContr
 	e.DELETE("/students/:id", studentController.DeleteStudentById)
 	e.PUT("/students/:id", studentController.UpdateStudent)
 }
+
+func SetupAuthRoutes(e *echo.Echo, authController *controller.AuthController) {
+	e.POST("/login", authController.Login)
+}

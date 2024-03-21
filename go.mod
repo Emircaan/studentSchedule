@@ -3,6 +3,8 @@ module github.com/emircaan/scheduleManager
 go 1.21.6
 
 require (
+	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
+	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.11.4
 	gorm.io/driver/mysql v1.5.5

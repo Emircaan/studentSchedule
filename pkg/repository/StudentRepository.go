@@ -32,3 +32,9 @@ func (r *StudentRepositry) UpdateStudent(student *model.Student) error {
 func (r *StudentRepositry) DeleteStudentById(id uint) error {
 	return r.DB.Delete(&model.Student{}, id).Error
 }
+
+func (r *StudentRepositry) GetStudentByEmail(email string) (*model.Student, error) {
+	var student model.Student
+	err := r.DB.Where("eposta = ?", email).First(&student).Error
+	return &student, err
+}

@@ -18,9 +18,11 @@ func NewStudentService(studentRepositry repository.StudentRepositryInterface) *S
 }
 
 func (s *StudentService) CreateStudent(student *model.Student) error {
+
 	if len(student.Sifre) < 5 {
 		return errors.New("Şifre en az 5 karakter içermelidir")
 	}
+
 	return s.StudentRepositry.CreateStudent(student)
 
 }
@@ -34,4 +36,8 @@ func (s *StudentService) UpdateStudent(student *model.Student) error {
 }
 func (s *StudentService) DeleteStudentById(id uint) error {
 	return s.StudentRepositry.DeleteStudentById(id)
+}
+
+func (s *StudentService) GetStudentByEmail(email string) (*model.Student, error) {
+	return s.StudentRepositry.GetStudentByEmail(email)
 }

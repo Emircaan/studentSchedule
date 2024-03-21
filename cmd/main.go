@@ -39,6 +39,10 @@ func main() {
 	studentRepository := repository.NewStudentRepository(a.DB)
 	studentService := service.NewStudentService(studentRepository)
 	a.Controller = controller.NewStudentController(studentService)
+	authService := service.NewAuthService(studentRepository)
+	authController := controller.NewAuthController(authService)
+	router.SetupAuthRoutes(a.Router, authController)
+
 	router.SetupStudentRouters(a.Router, a.Controller)
 
 	a.Router.Start(fmt.Sprintf(":%s", os.Getenv("PORT")))
