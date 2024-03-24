@@ -24,7 +24,12 @@ func (s *PlanController) CreatePlan(ctx echo.Context) error {
 	if err := ctx.Bind(plan); err != nil {
 		return err
 	}
-	return ctx.JSON(http.StatusCreated, s.PlanService.CreatePlan(plan))
+
+	if err := s.PlanService.CreatePlan(plan); err != nil {
+		return err
+	}
+
+	return ctx.JSON(http.StatusCreated, plan)
 }
 
 func (s *PlanController) GetPlans(ctx echo.Context) error {

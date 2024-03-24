@@ -18,14 +18,15 @@ type Student struct {
 }
 
 type Plan struct {
-	ID               uint   `gorm:"primaryKey"`
-	StudentID        uint   `gorm:"not null"`
-	Baslik           string `gorm:"not null"`
-	Aciklama         string
-	TarihVeSaat      time.Time `gorm:"autoCreateTime,type:time" `
-	Durum            string
-	OlusturmaTarihi  time.Time `gorm:"autoCreateTime"`
-	GuncellemeTarihi time.Time `gorm:"autoUpdateTime"`
+	ID                    uint   `gorm:"primaryKey"`
+	StudentID             uint   `gorm:"not null"`
+	Baslik                string `gorm:"not null"`
+	Aciklama              string
+	BitmesiPlanlananTarih time.Time
+	TarihVeSaat           time.Time `gorm:"autoCreateTime,type:time" `
+	Durum                 string
+	OlusturmaTarihi       time.Time `gorm:"autoCreateTime"`
+	GuncellemeTarihi      time.Time `gorm:"autoUpdateTime"`
 
 	Student Student `gorm:"foreignKey:StudentID"`
 }
