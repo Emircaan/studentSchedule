@@ -8,4 +8,5 @@ type StudentControllerInterface interface {
 	UpdateStudent(ctx echo.Context) error
 	DeleteStudentById(ctx echo.Context) error
 	GetStudentByEmail(ctx echo.Context) error
+	GetStudents(ctx echo.Context) error
 }

@@ -9,7 +9,7 @@ type StudentRepositry struct {
 	DB *gorm.DB
 }
 
-func NewStudentRepository(db *gorm.DB) *StudentRepositry {
+func NewStudentRepository(db *gorm.DB) StudentRepositryInterface {
 	return &StudentRepositry{
 		DB: db,
 	}
@@ -37,4 +37,10 @@ func (r *StudentRepositry) GetStudentByEmail(email string) (*model.Student, erro
 	var student model.Student
 	err := r.DB.Where("eposta = ?", email).First(&student).Error
 	return &student, err
+}
+
+func (r *StudentRepositry) GetStudents() ([]model.Student, error) {
+	var students []model.Student
+	err := r.DB.Find(&students).Error
+	return students, err
 }

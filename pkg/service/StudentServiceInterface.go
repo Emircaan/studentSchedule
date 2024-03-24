@@ -8,4 +8,5 @@ type StudentServiceInterface interface {
 	UpdateStudent(student *model.Student) error
 	DeleteStudentById(id uint) error
 	GetStudentByEmail(email string) (*model.Student, error)
+	GetStudents() ([]model.Student, error)
 }

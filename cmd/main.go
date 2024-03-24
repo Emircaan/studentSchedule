@@ -26,12 +26,14 @@ type App struct {
 func main() {
 
 	a := &App{}
+
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	a.initilaize(os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_NAME"))
+
 	model.Migrate(a.DB)
 	if err != nil {
 		log.Fatal("Tablolar oluşturulamadı: ", err)
@@ -42,6 +44,10 @@ func main() {
 	authService := service.NewAuthService(studentRepository)
 	authController := controller.NewAuthController(authService)
 	router.SetupAuthRoutes(a.Router, authController)
+	planRepository := repository.NewPlanRepository(a.DB)
+	planService := service.NewPlanService(planRepository)
+	planController := controller.NewPlanController(planService)
+	router.SetupPlanRouters(a.Router, planController, authService)
 
 	router.SetupStudentRouters(a.Router, a.Controller)
 

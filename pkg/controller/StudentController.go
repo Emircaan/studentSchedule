@@ -39,7 +39,7 @@ func (c *StudentController) GetStudentByID(ctx echo.Context) error {
 		return err
 	}
 
-	return ctx.JSON(http.StatusOK, student)
+	return ctx.JSON(http.StatusOK, student.ToResponse())
 }
 
 func (c *StudentController) DeleteStudentById(ctx echo.Context) error {
@@ -86,4 +86,18 @@ func (c *StudentController) GetStudentByEmail(ctx echo.Context) error {
 	}
 
 	return ctx.JSON(http.StatusOK, student)
+}
+
+func (c *StudentController) GetStudents(ctx echo.Context) error {
+	students := make([]map[string]string, 0)
+
+	ss, err := c.StudentService.GetStudents()
+	if err != nil {
+
+		return err
+	}
+	for _, s := range ss {
+		students = append(students, s.ToResponse())
+	}
+	return ctx.JSON(http.StatusOK, students)
 }

@@ -41,3 +41,7 @@ func (s *StudentService) DeleteStudentById(id uint) error {
 func (s *StudentService) GetStudentByEmail(email string) (*model.Student, error) {
 	return s.StudentRepositry.GetStudentByEmail(email)
 }
+
+func (s *StudentService) GetStudents() ([]model.Student, error) {
+	return s.StudentRepositry.GetStudents()
+}

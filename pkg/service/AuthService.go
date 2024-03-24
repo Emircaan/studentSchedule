@@ -48,3 +48,23 @@ func (s *AuthService) GenerateJWT(user *model.Student) (string, error) {
 
 	return tokenString, nil
 }
+
+func (s AuthService) AuthenticateJWT(tokenString string) (bool, error) {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("Geçersiz imza metodu")
+		}
+		return []byte("secret"), nil
+	})
+
+	if err != nil {
+		return false, err
+	}
+
+	if !token.Valid {
+		return false, errors.New("Geçersiz token")
+	}
+
+	return true, nil
+}
